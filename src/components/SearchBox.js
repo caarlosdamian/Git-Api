@@ -5,9 +5,14 @@ function SearchBox({ placeholder }) {
   const [issues, setIssues] = useState([]);
   const [palabraBuscar, setPalabraBuscar] = useState("");
   useEffect(() => {
-    GetIssue(palabraBuscar).then((res) => {
-      setIssues(res);
-    });
+    GetIssue(palabraBuscar).then(
+      (res) => {
+        setIssues(res);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }, [palabraBuscar]);
   return (
     <div className="search">
@@ -21,7 +26,7 @@ function SearchBox({ placeholder }) {
       <ul className="list">
         {issues.length !== 0 && (
           <div className="dataResult">
-            {issues.map((value,key) => {
+            {issues.map((value, key) => {
               const { title, labels } = value;
               const nombre = labels.map((val) => {
                 return val.name;
